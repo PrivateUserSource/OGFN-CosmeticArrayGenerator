@@ -1,0 +1,15 @@
+{
+  "name": "CosmeticArrayGenerator",
+  "version": "1.0.0",
+  "bin": "console.js",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "targets": ["node18-win-x64"],
+    "outputPath": "dist"
+  }
+}
