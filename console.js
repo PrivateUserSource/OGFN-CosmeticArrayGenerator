@@ -6,7 +6,7 @@ const rl = createInterface({
     output: process.stdout
 });
 
-const cosmetics = {};
+const cosmetics = [];
 
 async function fetchCosmeticData(name) {
     console.log('Fetching Cosmetic Data...');
@@ -19,8 +19,9 @@ async function fetchCosmeticData(name) {
             console.log('Found backendValue');
             console.log('Found id');
             const backendValue = data.data.id;
-            cosmetics[backendValue] = data.data.id;
-            console.log(`Added "${backendValue}:${data.data.id}" to the array.`);
+            const cosmeticToPush = backendValue + ":" + data.data.id;
+            cosmetics.push(cosmeticToPush);
+            console.log(`Added "${cosmeticToPush}" to the array.`);
         } else {
             console.log('Cosmetic not found');
         }
@@ -33,7 +34,11 @@ async function askForCosmetic() {
     rl.question('Enter cosmetic name (or type "finish" to generate array): ', async (answer) => {
         if (answer.toLowerCase() === 'finish') {
             console.log('\nGenerated Array:');
-            console.log(JSON.stringify(cosmetics, null, 2));
+            const CosmeticsJson = JSON.stringify(cosmetics, null, 2)
+                .replace(/^\[/, '{')
+                .replace(/\]$/, '}');
+                
+            console.log(CosmeticsJson);
             rl.question('\nPress Enter to exit...', () => {
                 rl.close();
             });
