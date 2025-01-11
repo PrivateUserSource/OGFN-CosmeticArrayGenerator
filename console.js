@@ -1,5 +1,5 @@
 const { createInterface } = require('readline');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = require('node-fetch');
 
 const rl = createInterface({
     input: process.stdin,

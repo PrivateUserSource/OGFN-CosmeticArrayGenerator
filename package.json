@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "bin": "console.js",
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^2.6.9"
   },
   "devDependencies": {
     "pkg": "^5.8.1"
