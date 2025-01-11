@@ -18,7 +18,7 @@ async function fetchCosmeticData(name) {
         if (data.status === 200 && data.data) {
             console.log('Found backendValue');
             console.log('Found id');
-            const backendValue = data.data.id;
+            const backendValue = data.data.type.backendValue;
             const cosmeticToPush = backendValue + ":" + data.data.id;
             cosmetics.push(cosmeticToPush);
             console.log(`Added "${cosmeticToPush}" to the array.`);
