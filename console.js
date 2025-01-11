@@ -34,7 +34,9 @@ async function askForCosmetic() {
         if (answer.toLowerCase() === 'finish') {
             console.log('\nGenerated Array:');
             console.log(JSON.stringify(cosmetics, null, 2));
-            rl.close();
+            rl.question('\nPress Enter to exit...', () => {
+                rl.close();
+            });
         } else {
             await fetchCosmeticData(answer);
             askForCosmetic();
