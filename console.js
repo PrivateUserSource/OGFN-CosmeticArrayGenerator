@@ -85,18 +85,7 @@ function askForOption() {
         } else if (answer === '2') {
             rl.question('Would you like to add to an existing JSON? (Y/N): ', (useExisting) => {
                 if (useExisting.toLowerCase() === 'y') {
-                    rl.question('Paste your existing JSON content: ', (jsonContent) => {
-                        try {
-                            const existingJson = JSON.parse(jsonContent);
-                            shopLayout = existingJson;
-                            console.log('Successfully loaded JSON content');
-                            askForNextItem();
-                        } catch (error) {
-                            console.log('Error parsing JSON content:', error.message);
-                            console.log('Starting with empty shop layout instead');
-                            askForNextItem();
-                        }
-                    });
+                    askForShopLayout();
                 } else {
                     askForNextItem();
                 }
@@ -125,14 +114,26 @@ async function askForCosmetic() {
 }
 
 async function askForShopLayout() {
-    askForNextItem();
+    rl.question('Enter the path to your shop layout JSON file: ', (filePath) => {
+        try {
+            const fileContent = fs.readFileSync(filePath, 'utf8');
+            shopLayout = JSON.parse(fileContent);
+            console.log('Shop layout loaded successfully!');
+            askForNextItem();
+        } catch (error) {
+            console.error('Error reading or parsing the file:', error.message);
+            askForShopLayout();
+        }
+    });
 }
 
 async function askForNextItem() {
     rl.question('Enter item name (or "done" to finish): ', async (name) => {
         if (name.toLowerCase() === 'done') {
             console.log('Final Shop Layout:', JSON.stringify(shopLayout, null, 2));
-            rl.close();
+            console.log('\nReturning to main menu...\n');
+            shopLayout = { featured: [], daily: [] }; // Reset shop layout
+            askForOption();
             return;
         }
 
