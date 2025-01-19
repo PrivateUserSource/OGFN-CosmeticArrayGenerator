@@ -100,7 +100,7 @@ function askForOption() {
 async function askForCosmetic() {
     rl.question('Enter cosmetic name (or "done" to finish): ', async (name) => {
         if (name.toLowerCase() === 'done') {
-            console.log('Final Cosmetic Array:', cosmetics);
+            console.log('Final Cosmetic Array:', JSON.stringify(cosmetics).replace('[', '{').replace(']', '}'));
             console.log('\nReturning to main menu...\n');
             askForOption();
             return;
